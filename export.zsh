@@ -44,7 +44,8 @@ export XLA_FLAGS=--xla_gpu_cuda_data_dir=/opt/cuda/
 export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
 export VK_LAYER_PATH=/usr/share/vulkan/explicit_layer.d:/usr/share/vulkan/implicit_layer.d
 
-
+# LIBREOFFICE backend
+export GDK_BACKEND=wayland
 
 
 
