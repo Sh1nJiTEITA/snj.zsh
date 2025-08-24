@@ -46,3 +46,23 @@ function update-pac() {
 	sudo reflector --verbose -l "$count_to_search" -n "$count_to_save" -p http --sort rate --save /etc/pacman.d/mirrorlist
 	sudo pacman -Sy
 }
+
+function encode-doc() { 
+	local what="${1}"	
+	local to="${2}"
+	gocryptfs "${what}" "${to}"
+}
+
+function decode-doc() { 
+	local what="${1}"	
+	fusermount -u "${what}"
+}
+
+function umount-gdrive() { 
+	fusermount3 -u ~/Data/Remote/
+}
+
+function mount-gdrive() { 
+	rclone mount gdrive: ~/Data/Remote --vfs-cache-mode writes &
+}
+

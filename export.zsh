@@ -2,6 +2,7 @@ export TERMINAL=kitty
 export EDITOR=nvim
 export QT_QPA_PLATFORMTHEME=qt5ct
 export LC_TIME=ru_RU.UTF-8
+export WINEPREFIX=~/Data/Wine/
 
 
 
