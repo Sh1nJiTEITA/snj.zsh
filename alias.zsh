@@ -24,7 +24,7 @@ alias top=bpytop
 alias lg=lazygit
 
 # Standart Arch install
-alias pac="sudo pacman -S"
+alias pac="sudo pacman"
 
 # Aur install
 alias aur="yay -S"
@@ -47,22 +47,27 @@ function update-pac() {
 	sudo pacman -Sy
 }
 
-function encode-doc() { 
+function encode-docs2() { 
 	local what="${1}"	
 	local to="${2}"
 	gocryptfs "${what}" "${to}"
 }
 
-function decode-doc() { 
+function encode-docs() { 
+	gocryptfs "/home/snj/Data/Docs/Docs.raw/" "/home/snj/Data/Docs/Docs.mount/"
+}
+
+function decode-docs2() { 
+	local what="${1}"	
+	fusermount -u "/home/snj/Data/Docs/Docs.mount/"
+}
+
+function decode-docs() { 
 	local what="${1}"	
 	fusermount -u "${what}"
 }
 
-function umount-gdrive() { 
-	fusermount3 -u ~/Data/Remote/
-}
-
-function mount-gdrive() { 
-	rclone mount gdrive: ~/Data/Remote --vfs-cache-mode writes &
-}
+alias umount-gdrive="fusermount3 -u ~/Data/Remote/"
+alias mount-gdrive="rclone mount gdrive: ~/Data/Remote --vfs-cache-mode writes &"
+alias sync-gdrive="rclone sync ~/Data/Books gdrive:Books --progress"
 
