@@ -1,7 +1,7 @@
 # oh-my-zsh ================================
 
 # Enabling some oh-my-zsh plugins
-plugins=(git vi-mode)
+plugins=(git vi-mode colored-man-pages)
 
 # ZSH path? 
 export ZSH="$HOME/.oh-my-zsh"
