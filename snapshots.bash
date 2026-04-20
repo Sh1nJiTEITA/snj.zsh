@@ -71,7 +71,15 @@ make-snapshot-sys() {
 remove-snapshot-sys() {
     _remove_snapshot "" "${SNAPSHOTS_SYS}" "$1"
 }
+
+_comp_snapshot_sys() { # zsh autocomplete
+    _files -W "${SNAPSHOTS_SYS}" -/
+}
 compdef _comp_snapshot_sys remove-snapshot-sys
+
+###############################################################################
+#                              HOME SNAPSHOT                                  #
+###############################################################################
 
 #######################################
 #
@@ -97,12 +105,9 @@ make-snapshot-home() {
 remove-snapshot-home() {
     _remove_snapshot "" "${SNAPSHOTS_HOME}" "$1"
 }
+
+_comp_snapshot_home() { # zsh autocomplete
+
+    _files -W "${SNAPSHOTS_HOME}" -/
+}
 compdef _comp_snapshot_home remove-snapshot-home
-
-_comp_snapshot_sys() {
-    _files _-W "${SNAPSHOTS_SYS}" -/
-}
-
-_comp_snapshot_home() {
-    _files _-W "${SNAPSHOTS_HOME}" -/
-}
