@@ -2,21 +2,7 @@
 alias md=mkdir
 
 
-alias make-snapshot-sys='sudo btrfs subvolume snapshot -r / ${SNAPSHOTS_SYS}/root_backup_$(date +%F)'
-function remove-snapshot-sys() { 
-    sudo btrfs subvolume delete $1
-}
-_remove-snapshot-sys-autocomplete() {
-    _files -W "${SNAPSHOTS_SYS}" -/
-}
-compdef _remove-snapshot-sys-autocomplete remove-snapshot-sys
 
-alias make-snapshot-home='sudo btrfs subvolume snapshot -r /home ${SNAPSHOTS_HOME}/home_backup_$(date +%F)'
-alias remove-snapshot-home='remove-snapshot-sys'
-_remove-snapshot-home-autocomplete() {
-    _files -W "${SNAPSHOTS_HOME}" -/
-}
-compdef _remove-snapshot-home-autocomplete remove-snapshot-home
 
 
 alias x11config='sudo GIT_CONFIG_GLOBAL=$HOME/.gitconfig git --git-dir=${HOME}/dotfiles/x11 --work-tree=/etc/X11/xorg.conf.d'
