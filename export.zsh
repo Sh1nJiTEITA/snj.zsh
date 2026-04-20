@@ -4,6 +4,15 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 export LC_TIME=ru_RU.UTF-8
 export WINEPREFIX=~/data/wine/
 
+export SNAPSHOTS_SYS="/.snapshots"
+export SNAPSHOTS_HOME="$HOME/.snapshots"
+
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 # GO 
 export GOPATH=$HOME/code/go
 
