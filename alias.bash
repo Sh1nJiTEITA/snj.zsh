@@ -58,12 +58,12 @@ function encode-docs2() {
 }
 
 function encode-docs() {
-    gocryptfs "/home/snj/Data/Docs/Docs.raw/" "/home/snj/Data/Docs/Docs.mount/"
+    gocryptfs "/home/snj/docs/secret/raw" "/home/snj/docs/secret/mount"
 }
 
 function decode-docs2() {
     local what="${1}"
-    fusermount -u "/home/snj/Data/Docs/Docs.mount/"
+    fusermount -u "/home/snj/docs/secret/mount"
 }
 
 function decode-docs() {
@@ -74,3 +74,6 @@ function decode-docs() {
 alias umount-gdrive="fusermount3 -u ~/Data/Remote/"
 alias mount-gdrive="rclone mount gdrive: ~/Data/Remote --vfs-cache-mode writes &"
 alias sync-gdrive="rclone sync ~/Data/Books gdrive:Books --progress"
+
+alias proxy-on='export http_proxy="http://127.0.0.1:2080" https_proxy="http://127.0.0.1:2080" HTTP_PROXY="http://127.0.0.1:2080" HTTPS_PROXY="http://127.0.0.1:2080"'
+alias proxy-off='unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY'
