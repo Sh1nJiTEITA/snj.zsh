@@ -77,3 +77,15 @@ alias sync-gdrive="rclone sync ~/Data/Books gdrive:Books --progress"
 
 alias proxy-on='export http_proxy="http://127.0.0.1:2080" https_proxy="http://127.0.0.1:2080" HTTP_PROXY="http://127.0.0.1:2080" HTTPS_PROXY="http://127.0.0.1:2080"'
 alias proxy-off='unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY'
+
+alias agy='sudo docker run -it --rm \
+  --net=host \
+  -e http_proxy="http://127.0.0.1:2080" \
+  -e https_proxy="http://127.0.0.1:2080" \
+  -e all_proxy="socks5://127.0.0.1:2080" \
+  -e HTTP_PROXY="http://127.0.0.1:2080" \
+  -e HTTPS_PROXY="http://127.0.0.1:2080" \
+  -e ALL_PROXY="socks5://127.0.0.1:2080" \
+  -v "$(pwd)":/workspace \
+  -v "$HOME/.gemini/antigravity-cli":/root/.gemini/antigravity-cli \
+  antigravity-box'
