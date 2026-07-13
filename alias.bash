@@ -57,7 +57,7 @@ function encode-docs2() {
     gocryptfs "${what}" "${to}"
 }
 
-function encode-docs() {
+function decode-docs() {
     gocryptfs "/home/snj/docs/secret/raw" "/home/snj/docs/secret/mount"
 }
 
@@ -66,7 +66,7 @@ function decode-docs2() {
     fusermount -u "/home/snj/docs/secret/mount"
 }
 
-function decode-docs() {
+function encode-docs() {
     local what="${1}"
     fusermount -u "${what}"
 }
@@ -89,3 +89,10 @@ alias agy='sudo docker run -it --rm \
   -v "$(pwd)":/workspace \
   -v "$HOME/.gemini/antigravity-cli":/root/.gemini/antigravity-cli \
   antigravity-box'
+
+alias vi=nvim
+
+alias pg-smartroad-v5='pgcli \
+    $(cat ~/docs/sorb/documents/creds/smartroad_v5) \
+    --init-command "set session default_transaction_read_only = on;" \
+'

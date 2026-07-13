@@ -32,3 +32,7 @@ export VK_LAYER_PATH=/usr/share/vulkan/explicit_layer.d:/usr/share/vulkan/implic
 
 # LIBREOFFICE backend
 # export GDK_BACKEND=wayland
+#
+bindkey -v
+#
+#
