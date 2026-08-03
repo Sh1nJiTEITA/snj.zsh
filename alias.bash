@@ -61,15 +61,14 @@ function decode-docs() {
     gocryptfs "/home/snj/docs/secret/raw" "/home/snj/docs/secret/mount"
 }
 
-function decode-docs2() {
-    local what="${1}"
+function encode-docs() {
     fusermount -u "/home/snj/docs/secret/mount"
 }
 
-function encode-docs() {
-    local what="${1}"
-    fusermount -u "${what}"
-}
+# function encode-docs() {
+#     local what="${1}"
+#     fusermount -u "${what}"
+# }
 
 alias umount-gdrive="fusermount3 -u ~/Data/Remote/"
 alias mount-gdrive="rclone mount gdrive: ~/Data/Remote --vfs-cache-mode writes &"
@@ -78,17 +77,19 @@ alias sync-gdrive="rclone sync ~/Data/Books gdrive:Books --progress"
 alias proxy-on='export http_proxy="http://127.0.0.1:2080" https_proxy="http://127.0.0.1:2080" HTTP_PROXY="http://127.0.0.1:2080" HTTPS_PROXY="http://127.0.0.1:2080"'
 alias proxy-off='unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY'
 
-alias agy='sudo docker run -it --rm \
-  --net=host \
-  -e http_proxy="http://127.0.0.1:2080" \
-  -e https_proxy="http://127.0.0.1:2080" \
-  -e all_proxy="socks5://127.0.0.1:2080" \
-  -e HTTP_PROXY="http://127.0.0.1:2080" \
-  -e HTTPS_PROXY="http://127.0.0.1:2080" \
-  -e ALL_PROXY="socks5://127.0.0.1:2080" \
-  -v "$(pwd)":/workspace \
-  -v "$HOME/.gemini/antigravity-cli":/root/.gemini/antigravity-cli \
-  antigravity-box'
+# alias agy='sudo docker run -it --rm \
+#   --net=host \
+#   -e http_proxy="http://127.0.0.1:2080" \
+#   -e https_proxy="http://127.0.0.1:2080" \
+#   -e all_proxy="socks5://127.0.0.1:2080" \
+#   -e HTTP_PROXY="http://127.0.0.1:2080" \
+#   -e HTTPS_PROXY="http://127.0.0.1:2080" \
+#   -e ALL_PROXY="socks5://127.0.0.1:2080" \
+#   -v "$(pwd)":/workspace \
+#   -v "$HOME/.gemini/antigravity-cli":/root/.gemini/antigravity-cli \
+#   antigravity-box'
+alias agy='sudo docker compose -f ~/mnt/docker/agy/docker-compose.yml run --rm agy'
+alias cld='sudo docker compose -f ~/mnt/docker/cld/docker-compose.yml run --rm cld'
 
 alias vi=nvim
 
@@ -96,3 +97,44 @@ alias pg-smartroad-v5='pgcli \
     $(cat ~/docs/sorb/documents/creds/smartroad_v5) \
     --init-command "set session default_transaction_read_only = on;" \
 '
+
+alias sz='sysz'
+
+alias reload-monitors='xrandr --output DP-2 --primary --mode 2560x1440 --rate 180 --pos 0x0 \
+       --output DP-0 --mode 1920x1080 --rate 144 --right-of DP-2 \
+       --output HDMI-0 --off\
+'
+
+
+function dictate() {
+  emulate -L zsh
+  setopt local_options no_monitor no_notify
+  local root=~/code/trash/whisper.cpp
+  local model="$root/models/ggml-medium.bin"
+  local wav=/tmp/dictate.wav
+  local pid text
+
+  [[ -f $model ]] || { print -u2 "model not found: $model"; return 1 }
+
+  rm -f $wav
+  pw-record --rate 16000 --channels 1 --format s16 "$wav" >/dev/null 2>&1 &
+  pid=$!
+  print -n "[rec] listening... press Enter to stop"
+  read -r
+  kill -INT $pid 2>/dev/null
+  wait $pid 2>/dev/null
+
+  [[ -s $wav ]] || { print "\r[err] empty recording\033[K"; return 1 }
+
+  print -n "\r[...] transcribing\033[K"
+  text=$("$root/build/bin/whisper-cli" -m "$model" -f "$wav" \
+           -l ru -nt -np -t 8 2>/dev/null \
+         | tr '\n' ' ' | sed 's/^ *//; s/ *$//')
+  print "\r$text\033[K"
+}
+
+
+
+
+
+

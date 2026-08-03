@@ -14,12 +14,19 @@ source $ZSH/oh-my-zsh.sh
 export PATH=$PATH:"$HOME/.local/bin"
 export PATH=$PATH:"$HOME/.oh-my-posh"
 
-# Loading oh-my-posh theme
-# eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/tiwahu.omp.json)"
-# eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/hul10.omp.json)"
-# eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/clean-detailed.omp.json)"
-# eval "$(oh-my-posh init zsh --config ~/.config/omp/snj.omp.yaml)"
-eval "$(oh-my-posh init zsh --config ~/.config/omp/snj.omp_rosepine.yaml)"
+load_omp_theme() {
+    CURRENT_SCHEME=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)
 
-# nvm startup
-# source /usr/share/nvm/init-nvm.sh
+    if [ "$CURRENT_SCHEME" = "'prefer-dark'" ]; then
+        eval "$(oh-my-posh init zsh --config ~/.config/omp/snj.omp_rosepine.yaml)"
+    else
+        eval "$(oh-my-posh init zsh --config ~/.config/omp/snj.omp_rosepine_dawn.yaml)"
+    fi
+}
+
+load_omp_theme
+
+TRAPUSR1() {
+    load_omp_theme
+    zle && zle reset-prompt
+}

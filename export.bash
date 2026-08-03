@@ -19,10 +19,6 @@ export GOPATH=$HOME/code/go
 # export PATH=$PATH:$GOPATH/bin
 # export PATH="$HOME/.cargo/bin:$PATH"
 
-# VCPKG ======================================================
-# export VCPKG_ROOT="$HOME/.local/share/vcpkg"
-# export PATH="$VCPKG_ROOT:$PATH"
-
 # wayland vars ===============================================
 # export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
@@ -30,9 +26,10 @@ export GOPATH=$HOME/code/go
 export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/nvidia_icd.json
 export VK_LAYER_PATH=/usr/share/vulkan/explicit_layer.d:/usr/share/vulkan/implicit_layer.d
 
+export FZF_DEFAULT_OPTS="--bind 'ctrl-n:down,ctrl-p:up,alt-p:previous-history,alt-n:next-history'"
+# export FZF_DEFAULT_OPTS="--bind 'ctrl-u:half-page-up,ctrl-d:half-page-down,alt-j:down,alt-k:up,alt-h:preview-up,alt-l:preview-down'"
 # LIBREOFFICE backend
 # export GDK_BACKEND=wayland
 #
 bindkey -v
-#
-#
+bindkey '^y' autosuggest-accept
